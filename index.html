@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MON DJASSA 225</title>
+    <style>
+        :root {
+            --primary: #ff6b6b;
+            --secondary: #4ecdc4;
+            --dark: #2f3640;
+            --light: #f5f6fa;
+            --gray: #7f8c8d;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--dark);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .role-nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: white;
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .role-btn {
+            background: none;
+            border: none;
+            padding: 8px 12px;
+            font-weight: 600;
+            color: var(--gray);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .role-btn.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        main {
+            flex: 1;
+            padding: 15px;
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .panel {
+            display: none;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            color: var(--dark);
+            border-left: 4px solid var(--secondary);
+            padding-left: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--secondary);
+        }
+
+        button.btn-submit {
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button.btn-submit:hover {
+            background-color: #e05656;
+        }
+
+        .item-card {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--light);
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .badge-pending { background-color: #f1c40f; }
+        .badge-success { background-color: #2ecc71; }
+
+        #chatbot-trigger {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--secondary);
+            color: white;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            cursor: pointer;
+            z-index: 999;
+        }
+
+        #chatbot-window {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 320px;
+            height: 400px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 999;
+        }
+
+        .chat-header {
+            background: var(--secondary);
+            color: white;
+            padding: 12px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .msg {
+            max-width: 80%;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .msg.bot {
+            background: var(--light);
+            align-self: flex-start;
+        }
+
+        .msg.user {
+            background: var(--primary);
+            color: white;
+            align-self: flex-end;
+        }
+
+        .chat-input-area {
+            display: flex;
+            border-top: 1px solid #eee;
+            padding: 8px;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+
+        .chat-input-area button {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0 12px;
+            margin-left: 6px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>MON DJASSA 225</h1>
+    </header>
+
+    <nav class="role-nav">
+        <button class="role-btn active" onclick="switchRole('client')">Acheteur</button>
+        <button class="role-btn" onclick="switchRole('fournisseur')">Fournisseur</button>
+        <button class="role-btn" onclick="switchRole('livreur')">Livreur</button>
+    </nav>
+
+    <main>
+        <!-- ESPACE CLIENT -->
+        <section id="panel-client" class="panel active">
+            <h2>Articles Disponibles</h2>
+            <div id="client-market"></div>
+        </section>
+
+        <!-- ESPACE FOURNISSEUR -->
+        <section id="panel-fournisseur" class="panel">
+            <h2>Ajouter un vêtement</h2>
+            <form id="add-item-form" onsubmit="handleAddItem(event)">
+                <div class="form-group">
+                    <label>Nom de l'article</label>
+                    <input type="text" id="item-name" placeholder="Ex: Chemise de nuit, Jean..." required>
+                </div>
+                <div class="form-group">
+                    <label>Prix (FCFA)</label>
+                    <input type="number" id="item-price" placeholder="Ex: 5000" required>
+                </div>
+                <button type="submit" class="btn-submit">Mettre en vente</button>
+            </form>
+            <h2 style="margin-top: 20px;">Mes Articles en vente</h2>
+            <div id="supplier-items"></div>
+        </section>
+
+        <!-- ESPACE LIVREUR -->
+        <section id="panel-livreur" class="panel">
+            <h2>Livraisons Disponibles</h2>
+            <div id="delivery-list"></div>
+        </section>
+    </main>
+
+    <!-- CHATBOT -->
+    <div id="chatbot-trigger" onclick="toggleChat()">💬</div>
+    <div id="chatbot-window">
+        <div class="chat-header">
+            <span>Assistant Djassa</span>
+            <span style="cursor:pointer;" onclick="toggleChat()">✕</span>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="msg bot">Salut ! Bienvenue sur MON DJASSA 225. Je peux t'aider pour les tarifs de livraison ou passer une commande ?</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Posez votre question..." onkeypress="handleChatKey(event)">
+            <button onclick="sendChatMessage()">OK</button>
+        </div>
+    </div>
+
+    <script>
+        let articles = [
+            { id: 1, name: "Robe d'été Wax", price: 12000 },
+            { id: 2, name: "Jean Slim Homme", price: 7500 }
+        ];
+
+        let commandes = [
+            { id: 101, item: "Robe d'été Wax", price: 12000, status: "En attente", deliveryFee: "À définir selon zone" }
+        ];
+
+        function switchRole(role) {
+            document.querySelectorAll('.role-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(`panel-${role}`).classList.add('active');
+            renderData();
+        }
+
+        function renderData() {
+            const market = document.getElementById('client-market');
+            market.innerHTML = articles.map(art => `
+                <div class="item-card">
+                    <div>
+                        <strong>${art.name}</strong><br>
+                        <span style="color: var(--primary); font-weight: bold;">${art.price} FCFA</span>
+                    </div>
+                    <button class="btn-submit" style="width: auto; padding: 6px 12px; font-size: 0.85rem;" onclick="buyItem(${art.id})">Acheter</button>
+                </div>
+            `).join('');
+
+            const supplierItems = document.getElementById('supplier-items');
+            supplierItems.innerHTML = articles.map(art => `
+                <div class="item-card">
+                    <div><strong>${art.name}</strong></div>
+                    <div>${art.price} FCFA</div>
+                </div>
+            `).join('');
+
+            const deliveryList = document.getElementById('delivery-list');
+            deliveryList.innerHTML = commandes.map(cmd => `
+                <div class="item-card" style="flex-direction: column; align-items: flex-start; gap: 5px;">
+                    <div style="width: 100%; display: flex; justify-content: space-between;">
+                        <strong>Commande #${cmd.id}</strong>
+                        <span class="badge ${cmd.status === 'En attente' ? 'badge-pending' : 'badge-success'}">${cmd.status}</span>
+                    </div>
+                    <div>Article : ${cmd.item}</div>
+                    <div style="font-size: 0.85rem; color: var(--gray);">Livraison : ${cmd.deliveryFee}</div>
+                </div>
+            `).join('');
+        }
+
+        function handleAddItem(e) {
+            e.preventDefault();
+            const name = document.getElementById('item-name').value;
+            const price = document.getElementById('item-price').value;
+            
+            articles.push({ id: articles.length + 1, name: name, price: parseInt(price) });
+            document.getElementById('add-item-form').reset();
+            renderData();
+            alert("Article ajouté !");
+        }
+
+        function buyItem(id) {
+            const art = articles.find(a => a.id === id);
+            if(art) {
+                commandes.push({ id: commandes.length + 101, item: art.name, price: art.price, status: "En attente", deliveryFee: "Calcul en cours..." });
+                alert(`Commande enregistrée pour : ${art.name}`);
+                renderData();
+            }
+        }
+
+        function toggleChat() {
+            const win = document.getElementById('chatbot-window');
+            win.style.display = (win.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        function handleChatKey(e) {
+            if(e.key === 'Enter') sendChatMessage();
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('chat-input');
+            const text = input.value.trim();
+            if(!text) return;
+
+            appendMessage(text, 'user');
+            input.value = '';
+
+            setTimeout(() => {
+                let reply = "Je n'ai pas compris. Tu peux me parler des articles ou des frais de livraison ?";
+                const lowerText = text.toLowerCase();
+
+                if(lowerText.includes('livraison') || lowerText.includes('prix') || lowerText.includes('livrer')) {
+                    reply = "Le tarif de livraison n'est pas fixe. Il varie généralement entre 1000 et 3000 FCFA selon ta commune à Abidjan. Le livreur te donnera le prix exact avant de se déplacer.";
+                } else if(lowerText.includes('acheter') || lowerText.includes('commande')) {
+                    reply = "Va sur l'onglet 'Acheteur' et clique sur le bouton 'Acheter' à côté du vêtement choisi !";
+                }
+                appendMessage(reply, 'bot');
+            }, 600);
+        }
+
+        function appendMessage(text, sender) {
+            const container = document.getElementById('chat-messages');
+            const msgDiv = document.createElement('div');
+            msgDiv.classList.add('msg', sender);
+            msgDiv.innerText = text;
+            container.appendChild(msgDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        renderData();
+    </script>
+</body>
+</html>

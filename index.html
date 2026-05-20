@@ -11,6 +11,8 @@
             --dark: #2f3640;
             --light: #f5f6fa;
             --gray: #7f8c8d;
+            --success: #2ecc71;
+            --warning: #f1c40f;
         }
 
         * {
@@ -23,9 +25,43 @@
         body {
             background-color: var(--light);
             color: var(--dark);
-            display: flex;
-            flex-direction: column;
             min-height: 100vh;
+        }
+
+        /* Écrans de connexion */
+        #auth-container {
+            max-width: 450px;
+            margin: 30px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .auth-toggle {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .auth-toggle button {
+            background: none;
+            border: none;
+            padding: 10px;
+            font-weight: bold;
+            color: var(--gray);
+            cursor: pointer;
+        }
+
+        .auth-toggle button.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        /* Application principale */
+        #app-container {
+            display: none;
         }
 
         header {
@@ -36,136 +72,135 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        header h1 {
-            font-size: 1.5rem;
-            letter-spacing: 1px;
-        }
-
-        .role-nav {
-            display: flex;
-            justify-content: space-around;
-            background-color: white;
-            padding: 10px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .role-btn {
-            background: none;
-            border: none;
-            padding: 8px 12px;
-            font-weight: 600;
-            color: var(--gray);
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            transition: all 0.3s;
+        .user-welcome {
+            background-color: #eee;
+            padding: 10px 15px;
             font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .role-btn.active {
-            color: var(--primary);
-            border-bottom: 2px solid var(--primary);
+        .role-badge {
+            background: var(--dark);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
         }
 
         main {
-            flex: 1;
             padding: 15px;
             max-width: 600px;
-            width: 100%;
             margin: 0 auto;
+            padding-bottom: 100px;
         }
 
-        .panel {
-            display: none;
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            animation: fadeIn 0.3s ease-in-out;
-        }
-
-        .panel.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h2 {
+        /* Onglets pour les espaces spécifiques */
+        .tab-navigation {
+            display: flex;
+            background: #e0e0e0;
+            border-radius: 8px;
             margin-bottom: 15px;
-            font-size: 1.3rem;
-            color: var(--dark);
-            border-left: 4px solid var(--secondary);
-            padding-left: 8px;
+            overflow: hidden;
         }
 
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: none;
+            font-weight: bold;
+            color: var(--gray);
+            cursor: pointer;
+        }
+
+        .tab-btn.active {
+            background: var(--dark);
+            color: white;
+        }
+
+        .tab-btn.express-tab.active {
+            background: var(--primary);
+        }
+
+        /* Formulaires & Éléments globaux */
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
+            margin-bottom: 4px;
             font-size: 0.9rem;
+            font-weight: bold;
         }
 
-        input, select, textarea {
+        input, select {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border: 1px solid #ddd;
             border-radius: 8px;
             font-size: 1rem;
-            outline: none;
         }
 
-        input:focus, select:focus, textarea:focus {
-            border-color: var(--secondary);
-        }
-
-        button.btn-submit {
+        .btn-submit {
             width: 100%;
-            background-color: var(--primary);
+            padding: 12px;
+            background: var(--primary);
             color: white;
             border: none;
-            padding: 12px;
             border-radius: 8px;
-            font-size: 1rem;
             font-weight: bold;
+            font-size: 1rem;
             cursor: pointer;
-            transition: background 0.2s;
         }
 
-        button.btn-submit:hover {
-            background-color: #e05656;
+        /* Cartes d'articles / commandes */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+            margin-bottom: 12px;
+            border-left: 5px solid var(--secondary);
         }
 
-        .item-card {
-            border: 1px solid #eee;
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 10px;
+        .card.express-border {
+            border-left-color: var(--primary);
+        }
+
+        .card-header-flex {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            background: var(--light);
+            align-items: flex-start;
+            margin-bottom: 8px;
         }
 
-        .badge {
-            padding: 4px 8px;
-            border-radius: 20px;
-            font-size: 0.8rem;
+        .price-tag {
+            color: var(--primary);
             font-weight: bold;
-            color: white;
+            font-size: 1.1rem;
         }
 
-        .badge-pending { background-color: #f1c40f; }
-        .badge-success { background-color: #2ecc71; }
+        .btn-action-sm {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            margin-top: 5px;
+        }
 
+        .btn-call { background-color: var(--success); margin-right: 5px; text-decoration: none; display: inline-block; padding: 8px 12px; border-radius:6px; color:white; font-weight:bold; font-size:0.9rem;}
+        .btn-next { background-color: var(--dark); }
+        .btn-buy { background-color: var(--primary); width: 100%; padding: 10px; margin-top: 10px;}
+
+        /* Chatbot Window */
         #chatbot-trigger {
             position: fixed;
             bottom: 20px;
@@ -188,8 +223,8 @@
             position: fixed;
             bottom: 90px;
             right: 20px;
-            width: 320px;
-            height: 400px;
+            width: 340px;
+            height: 450px;
             background: white;
             border-radius: 12px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
@@ -216,223 +251,576 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
+            background-color: #f9f9f9;
         }
 
         .msg {
-            max-width: 80%;
-            padding: 8px 12px;
-            border-radius: 8px;
+            max-width: 85%;
+            padding: 10px 14px;
+            border-radius: 12px;
             font-size: 0.9rem;
             line-height: 1.4;
         }
 
         .msg.bot {
-            background: var(--light);
+            background: white;
             align-self: flex-start;
+            border-bottom-left-radius: 2px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
 
         .msg.user {
             background: var(--primary);
             color: white;
             align-self: flex-end;
+            border-bottom-right-radius: 2px;
         }
 
         .chat-input-area {
             display: flex;
             border-top: 1px solid #eee;
             padding: 8px;
+            background: white;
         }
 
         .chat-input-area input {
             flex: 1;
-            padding: 8px;
+            padding: 10px;
             border: 1px solid #ddd;
             border-radius: 6px;
+            outline: none;
         }
 
         .chat-input-area button {
             background: var(--secondary);
             color: white;
             border: none;
-            padding: 0 12px;
+            padding: 0 16px;
             margin-left: 6px;
             border-radius: 6px;
+            font-weight: bold;
             cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>MON DJASSA 225</h1>
-    </header>
-
-    <nav class="role-nav">
-        <button class="role-btn active" onclick="switchRole('client')">Acheteur</button>
-        <button class="role-btn" onclick="switchRole('fournisseur')">Fournisseur</button>
-        <button class="role-btn" onclick="switchRole('livreur')">Livreur</button>
-    </nav>
-
-    <main>
-        <!-- ESPACE CLIENT -->
-        <section id="panel-client" class="panel active">
-            <h2>Articles Disponibles</h2>
-            <div id="client-market"></div>
-        </section>
-
-        <!-- ESPACE FOURNISSEUR -->
-        <section id="panel-fournisseur" class="panel">
-            <h2>Ajouter un vêtement</h2>
-            <form id="add-item-form" onsubmit="handleAddItem(event)">
-                <div class="form-group">
-                    <label>Nom de l'article</label>
-                    <input type="text" id="item-name" placeholder="Ex: Chemise de nuit, Jean..." required>
-                </div>
-                <div class="form-group">
-                    <label>Prix (FCFA)</label>
-                    <input type="number" id="item-price" placeholder="Ex: 5000" required>
-                </div>
-                <button type="submit" class="btn-submit">Mettre en vente</button>
-            </form>
-            <h2 style="margin-top: 20px;">Mes Articles en vente</h2>
-            <div id="supplier-items"></div>
-        </section>
-
-        <!-- ESPACE LIVREUR -->
-        <section id="panel-livreur" class="panel">
-            <h2>Livraisons Disponibles</h2>
-            <div id="delivery-list"></div>
-        </section>
-    </main>
-
-    <!-- CHATBOT -->
-    <div id="chatbot-trigger" onclick="toggleChat()">💬</div>
-    <div id="chatbot-window">
-        <div class="chat-header">
-            <span>Assistant Djassa</span>
-            <span style="cursor:pointer;" onclick="toggleChat()">✕</span>
+    <!-- SECTION LOG IN / SIGN UP -->
+    <div id="auth-container">
+        <h2 style="text-align:center; margin-bottom: 5px; color: var(--dark)">MON DJASSA 225</h2>
+        <p style="text-align:center; color:var(--gray); font-size:0.85rem; margin-bottom:20px;">Le marché 100% automatisé</p>
+        
+        <div class="auth-toggle">
+            <button id="tab-login" class="active" onclick="switchAuthMode('login')">Connexion</button>
+            <button id="tab-register" onclick="switchAuthMode('register')">Inscription</button>
         </div>
-        <div class="chat-messages" id="chat-messages">
-            <div class="msg bot">Salut ! Bienvenue sur MON DJASSA 225. Je peux t'aider pour les tarifs de livraison ou passer une commande ?</div>
+
+        <!-- Formulaire Global Connexion -->
+        <form id="form-login" onsubmit="handleAuth(event, 'login')">
+            <div class="form-group">
+                <label>Votre Rôle</label>
+                <select id="login-role">
+                    <option value="client">Acheteur (Client)</option>
+                    <option value="fournisseur">Fournisseur (Vendeur de vêtements)</option>
+                    <option value="livreur">Livreur (Moto 🏍️)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Numéro de téléphone (10 chiffres)</label>
+                <input type="tel" id="login-phone" placeholder="Ex: 0708091011" required>
+            </div>
+            <div class="form-group">
+                <label>Mot de passe</label>
+                <input type="password" id="login-pass" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn-submit">Entrer dans le Djassa</button>
+        </form>
+
+        <!-- Formulaire Inscription -->
+        <form id="form-register" onsubmit="handleAuth(event, 'register')" style="display:none;">
+            <div class="form-group">
+                <label>Vous êtes ?</label>
+                <select id="reg-role" onchange="toggleRegCommune()">
+                    <option value="client">Acheteur (Client)</option>
+                    <option value="fournisseur">Fournisseur (Vendeur)</option>
+                    <option value="livreur">Livreur (Moto 🏍️)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Nom Complet / Nom de Boutique</label>
+                <input type="text" id="reg-name" placeholder="Ex: Boutique de Grâce / Momo Livreur" required>
+            </div>
+            <div class="form-group">
+                <label>Numéro de téléphone</label>
+                <input type="tel" id="reg-phone" placeholder="Ex: 0506070809" required>
+            </div>
+            <div class="form-group" id="commune-group">
+                <label>Votre Commune de base</label>
+                <select id="reg-commune">
+                    <option value="Yopougon">Yopougon</option>
+                    <option value="Cocody">Cocody</option>
+                    <option value="Abobo">Abobo</option>
+                    <option value="Koumassi">Koumassi</option>
+                    <option value="Marcory">Marcory</option>
+                    <option value="Treichville">Treichville</option>
+                    <option value="Adjamé">Adjamé</option>
+                    <option value="Bingerville">Bingerville</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Mot de passe</label>
+                <input type="password" id="reg-pass" placeholder="Créer votre sécurité" required>
+            </div>
+            <button type="submit" class="btn-submit">Créer mon compte</button>
+        </form>
+    </div>
+
+    <!-- APPLICATION PRINCIPALE -->
+    <div id="app-container">
+        <header>
+            <h1>MON DJASSA 225</h1>
+        </header>
+        <div class="user-welcome">
+            <div>
+                <span id="welcome-text">Bienvenue</span> 
+                <span id="role-badge" class="role-badge">Rôle</span>
+            </div>
+            <button onclick="handleLogout()" style="background:none; border:none; color:var(--primary); font-weight:bold; cursor:pointer;">Sortir</button>
         </div>
-        <div class="chat-input-area">
-            <input type="text" id="chat-input" placeholder="Posez votre question..." onkeypress="handleChatKey(event)">
-            <button onclick="sendChatMessage()">OK</button>
+
+        <main>
+            <!-- ================= ESPACE CLIENT ================= -->
+            <div id="space-client" style="display:none;">
+                <div class="form-group">
+                    <label style="font-size:1.1rem; margin-bottom:8px;">Quel vêtement cherches-tu ?</label>
+                    <input type="text" id="search-input" placeholder="Ex: t-shirt noir nike l, jean zara..." oninput="filterClientMarket()">
+                </div>
+                <h3 style="margin: 15px 0 10px 0; font-size:1rem;">Articles disponibles en vitrine</h3>
+                <div id="client-market-list"></div>
+            </div>
+
+            <!-- ================= ESPACE FOURNISSEUR ================= -->
+            <div id="space-fournisseur" style="display:none;">
+                <div style="background:white; padding:15px; border-radius:12px; margin-bottom:20px; box-shadow:0 2px 5px rgba(0,0,0,0.05);">
+                    <h3 style="margin-bottom:12px; font-size:1.1rem; color:var(--dark);">Mettre un article en ligne (30s) ⚡</h3>
+                    <form onsubmit="addProduct(event)">
+                        <div style="display:flex; gap:8px;" class="form-group">
+                            <select id="p-cat" required>
+                                <option value="T-shirt">T-shirt</option>
+                                <option value="Jean">Jean</option>
+                                <option value="Robe">Robe</option>
+                                <option value="Chemise">Chemise</option>
+                            </select>
+                            <input type="text" id="p-brand" placeholder="Marque (ex: Nike)" required>
+                        </div>
+                        <div style="display:flex; gap:8px;" class="form-group">
+                            <input type="text" id="p-color" placeholder="Couleur (ex: Noir)" required>
+                            <input type="text" id="p-size" placeholder="Taille (ex: L, 42)" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Ton prix NET (FCFA)</label>
+                            <input type="number" id="p-price" placeholder="Ex: 5000" oninput="calculateCommissionHint()" required>
+                            <p id="com-hint" style="font-size:0.8rem; color:var(--success); margin-top:4px; font-weight:bold;"></p>
+                        </div>
+                        <button type="submit" class="btn-submit" style="background-color:var(--secondary);">Mettre au marché</button>
+                    </form>
+                </div>
+
+                <div class="tab-navigation">
+                    <button class="tab-btn active" id="f-tab-vitrine" onclick="switchFournisseurTab('vitrine')">Ma Vitrine</button>
+                    <button class="tab-btn" id="f-tab-orders" onclick="switchFournisseurTab('orders')">Suivi des Ventes</button>
+                </div>
+                <div id="fournisseur-content"></div>
+            </div>
+
+            <!-- ================= ESPACE LIVREUR ================= -->
+            <div id="space-livreur" style="display:none;">
+                <div class="tab-navigation">
+                    <button class="tab-btn express-tab active" id="l-tab-express" onclick="switchLivreurTab('express')">🔥 LIVRAISONS EXPRESS</button>
+                    <button class="tab-btn" id="l-tab-normal" onclick="switchLivreurTab('normal')">📦 NORMAL (48H / GROUPÉ)</button>
+                </div>
+                <div id="livreur-orders-list"></div>
+            </div>
+        </main>
+
+        <!-- ASSISTANT CHATBOT GLOBAL (Surtout pour l'acheteur) -->
+        <div id="chatbot-trigger" onclick="toggleChat()">💬</div>
+        <div id="chatbot-window">
+            <div class="chat-header">
+                <span>Assistant Djassa 🤖</span>
+                <span style="cursor:pointer;" onclick="toggleChat()">✕</span>
+            </div>
+            <div class="chat-messages" id="chat-messages"></div>
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Répondez à l'assistant..." onkeypress="handleChatKey(event)">
+                <button onclick="sendChatMessage()">OK</button>
+            </div>
         </div>
     </div>
 
     <script>
-        let articles = [
-            { id: 1, name: "Robe d'été Wax", price: 12000 },
-            { id: 2, name: "Jean Slim Homme", price: 7500 }
-        ];
+        // --- BASE DE DONNÉES SIMULÉE ---
+        let database = {
+            products: [
+                { id: 1, category: "T-shirt", brand: "Nike", color: "Noir", size: "L", supplierPrice: 5000, finalPrice: 5500, supplierName: "Hassan Shop", supplierPhone: "0707070707", supplierCommune: "Adjamé" },
+                { id: 2, category: "Jean", brand: "Zara", color: "Bleu", size: "42", supplierPrice: 8000, finalPrice: 8800, supplierName: "Boutique Grâce", supplierPhone: "0505050505", supplierCommune: "Cocody" },
+                { id: 3, category: "T-shirt", brand: "Puma", color: "Noir", size: "M", supplierPrice: 4500, finalPrice: 4950, supplierName: "Hassan Shop", supplierPhone: "0707070707", supplierCommune: "Adjamé" }
+            ],
+            orders: []
+        };
 
-        let commandes = [
-            { id: 101, item: "Robe d'été Wax", price: 12000, status: "En attente", deliveryFee: "À définir selon zone" }
-        ];
+        let currentUser = null;
+        let selectedProductForOrder = null;
+        let chatStep = "idle";
+        let activeFournisseurTab = "vitrine";
+        let activeLivreurTab = "express";
 
-        function switchRole(role) {
-            document.querySelectorAll('.role-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active'));
-            
-            event.target.classList.add('active');
-            document.getElementById(`panel-${role}`).classList.add('active');
-            renderData();
-        }
-
-        function renderData() {
-            const market = document.getElementById('client-market');
-            market.innerHTML = articles.map(art => `
-                <div class="item-card">
-                    <div>
-                        <strong>${art.name}</strong><br>
-                        <span style="color: var(--primary); font-weight: bold;">${art.price} FCFA</span>
-                    </div>
-                    <button class="btn-submit" style="width: auto; padding: 6px 12px; font-size: 0.85rem;" onclick="buyItem(${art.id})">Acheter</button>
-                </div>
-            `).join('');
-
-            const supplierItems = document.getElementById('supplier-items');
-            supplierItems.innerHTML = articles.map(art => `
-                <div class="item-card">
-                    <div><strong>${art.name}</strong></div>
-                    <div>${art.price} FCFA</div>
-                </div>
-            `).join('');
-
-            const deliveryList = document.getElementById('delivery-list');
-            deliveryList.innerHTML = commandes.map(cmd => `
-                <div class="item-card" style="flex-direction: column; align-items: flex-start; gap: 5px;">
-                    <div style="width: 100%; display: flex; justify-content: space-between;">
-                        <strong>Commande #${cmd.id}</strong>
-                        <span class="badge ${cmd.status === 'En attente' ? 'badge-pending' : 'badge-success'}">${cmd.status}</span>
-                    </div>
-                    <div>Article : ${cmd.item}</div>
-                    <div style="font-size: 0.85rem; color: var(--gray);">Livraison : ${cmd.deliveryFee}</div>
-                </div>
-            `).join('');
-        }
-
-        function handleAddItem(e) {
-            e.preventDefault();
-            const name = document.getElementById('item-name').value;
-            const price = document.getElementById('item-price').value;
-            
-            articles.push({ id: articles.length + 1, name: name, price: parseInt(price) });
-            document.getElementById('add-item-form').reset();
-            renderData();
-            alert("Article ajouté !");
-        }
-
-        function buyItem(id) {
-            const art = articles.find(a => a.id === id);
-            if(art) {
-                commandes.push({ id: commandes.length + 101, item: art.name, price: art.price, status: "En attente", deliveryFee: "Calcul en cours..." });
-                alert(`Commande enregistrée pour : ${art.name}`);
-                renderData();
+        // --- AUTHENTIFICATION ---
+        function switchAuthMode(mode) {
+            document.getElementById('tab-login').classList.remove('active');
+            document.getElementById('tab-register').classList.remove('active');
+            document.getElementById('form-login').style.display = 'none';
+            document.getElementById('form-register').style.display = 'none';
+            if(mode === 'login') {
+                document.getElementById('tab-login').classList.add('add', 'active');
+                document.getElementById('form-login').style.display = 'block';
+            } else {
+                document.getElementById('tab-register').classList.add('active');
+                document.getElementById('form-register').style.display = 'block';
             }
         }
 
+        function toggleRegCommune() {
+            const role = document.getElementById('reg-role').value;
+            // Un livreur bouge partout, pas forcément rattaché à une commune fixe pour son affichage
+            document.getElementById('commune-group').style.display = (role === 'livreur') ? 'none' : 'block';
+        }
+
+        function handleAuth(e, type) {
+            e.preventDefault();
+            if(type === 'register') {
+                currentUser = {
+                    role: document.getElementById('reg-role').value,
+                    name: document.getElementById('reg-name').value,
+                    phone: document.getElementById('reg-phone').value,
+                    commune: document.getElementById('reg-role').value === 'livreur' ? 'Abidjan' : document.getElementById('reg-commune').value
+                };
+            } else {
+                currentUser = {
+                    role: document.getElementById('login-role').value,
+                    name: document.getElementById('login-role').value === 'client' ? 'Acheteur Pro' : 'Boss ' + document.getElementById('login-role').value,
+                    phone: document.getElementById('login-phone').value,
+                    commune: "Yopougon" // Par défaut pour la simu login rapide
+                };
+            }
+
+            if(currentUser.phone.length < 10) {
+                alert("Chef, le numéro doit comporter 10 chiffres !");
+                return;
+            }
+
+            document.getElementById('auth-container').style.display = 'none';
+            document.getElementById('app-container').style.display = 'block';
+            document.getElementById('role-badge').innerText = currentUser.role.toUpperCase();
+            document.getElementById('welcome-text').innerText = `${currentUser.name} (${currentUser.commune})`;
+            
+            setupSpace();
+        }
+
+        function handleLogout() {
+            currentUser = null;
+            document.getElementById('app-container').style.display = 'none';
+            document.getElementById('auth-container').style.display = 'block';
+        }
+
+        // --- DISPATCHER D'ESPACES ---
+        function setupSpace() {
+            document.getElementById('space-client').style.display = 'none';
+            document.getElementById('space-fournisseur').style.display = 'none';
+            document.getElementById('space-livreur').style.display = 'none';
+            document.getElementById('chatbot-trigger').style.display = 'none';
+
+            if(currentUser.role === 'client') {
+                document.getElementById('space-client').style.display = 'block';
+                document.getElementById('chatbot-trigger').style.display = 'flex';
+                renderClientMarket(database.products);
+                initChatForClient();
+            } else if(currentUser.role === 'fournisseur') {
+                document.getElementById('space-fournisseur').style.display = 'block';
+                switchFournisseurTab('vitrine');
+            } else if(currentUser.role === 'livreur') {
+                document.getElementById('space-livreur').style.display = 'block';
+                renderLivreurOrders();
+            }
+        }
+
+        // ================= LOGIQUE CLIENT =================
+        function renderClientMarket(products) {
+            const container = document.getElementById('client-market-list');
+            if(products.length === 0) {
+                container.innerHTML = `<p style="text-align:center; color:var(--gray); padding:20px;">Aucun article exact trouvé, écris d'autres mots clés !</p>`;
+                return;
+            }
+            container.innerHTML = products.map(p => `
+                <div class="card">
+                    <div class="card-header-flex">
+                        <div>
+                            <strong style="font-size:1.1rem;">${p.category} ${p.brand}</strong>
+                            <div style="font-size:0.85rem; color:var(--gray); margin-top:3px;">Couleur: ${p.color} | Taille: ${p.size}</div>
+                            <div style="font-size:0.8rem; color:var(--dark); margin-top:2px;">Boutique: ${p.supplierName} (${p.supplierCommune})</div>
+                        </div>
+                        <span class="price-tag">${p.finalPrice} FCFA</span>
+                    </div>
+                    <button class="btn-action-sm btn-buy" onclick="openChatToOrder(${p.id})">Commander avec l'assistant 🤖</button>
+                </div>
+            `).join('');
+        }
+
+        function filterClientMarket() {
+            const query = document.getElementById('search-input').value.toLowerCase().trim();
+            if(!query) { renderClientMarket(database.products); return; }
+            const words = query.split(' ');
+            let filtered = database.products.filter(p => {
+                const combinedText = `${p.category} ${p.brand} ${p.color} ${p.size}`.toLowerCase();
+                return words.every(word => combinedText.includes(word));
+            });
+            renderClientMarket(filtered);
+        }
+
+        // ================= LOGIQUE FOURNISSEUR =================
+        function calculateCommissionHint() {
+            const p = parseFloat(document.getElementById('p-price').value);
+            const hint = document.getElementById('com-hint');
+            if(!p) { hint.innerText = ""; return; }
+            const final = Math.round(p * 1.1);
+            hint.innerText = `Tu gagnes tes ${p}f net. Le client verra l'article à ${final}f (+10% Djassa).`;
+        }
+
+        function addProduct(e) {
+            e.preventDefault();
+            const price = parseInt(document.getElementById('p-price').value);
+            const newP = {
+                id: database.products.length + 1,
+                category: document.getElementById('p-cat').value,
+                brand: document.getElementById('p-brand').value,
+                color: document.getElementById('p-color').value,
+                size: document.getElementById('p-size').value,
+                supplierPrice: price,
+                finalPrice: Math.round(price * 1.1),
+                supplierName: currentUser.name,
+                supplierPhone: currentUser.phone,
+                supplierCommune: currentUser.commune
+            };
+            database.products.push(newP);
+            alert("C'est propre ! Article ajouté en vitrine.");
+            document.getElementById('p-brand').value = '';
+            document.getElementById('p-color').value = '';
+            document.getElementById('p-size').value = '';
+            document.getElementById('p-price').value = '';
+            document.getElementById('com-hint').innerText = '';
+            switchFournisseurTab(activeFournisseurTab);
+        }
+
+        function switchFournisseurTab(tab) {
+            activeFournisseurTab = tab;
+            document.getElementById('f-tab-vitrine').classList.remove('active');
+            document.getElementById('f-tab-orders').classList.remove('active');
+            document.getElementById('f-tab-' + tab).classList.add('active');
+
+            const content = document.getElementById('fournisseur-content');
+            const myProducts = database.products.filter(p => p.supplierPhone === currentUser.phone);
+
+            if(tab === 'vitrine') {
+                if(myProducts.length === 0) { content.innerHTML = "<p style='color:var(--gray); padding:10px;'>Ta vitrine est vide boss.</p>"; return; }
+                content.innerHTML = myProducts.map(p => `
+                    <div class="card">
+                        <div class="card-header-flex">
+                            <div><strong>${p.category} - ${p.brand}</strong> (Taille ${p.size})</div>
+                            <span class="price-tag">${p.supplierPrice} FCFA Net</span>
+                        </div>
+                        <div style="font-size:0.8rem; color:var(--gray);">Affiché au client à : ${p.finalPrice} FCFA</div>
+                    </div>
+                `).join('');
+            } else {
+                const myOrders = database.orders.filter(o => o.product.supplierPhone === currentUser.phone);
+                if(myOrders.length === 0) { content.innerHTML = "<p style='color:var(--gray); padding:10px;'>Aucune vente pour le moment.</p>"; return; }
+                content.innerHTML = myOrders.map(o => `
+                    <div class="card">
+                        <div class="card-header-flex">
+                            <div><strong>${o.product.category} (${o.product.brand})</strong></div>
+                            <span class="role-badge" style="background-color: ${o.status === 'Livré' ? 'var(--success)' : 'var(--warning)'}">${o.status}</span>
+                        </div>
+                        <p style="font-size:0.85rem;">Type livraison : <strong>${o.type.toUpperCase()}</strong></p>
+                        <p style="font-size:0.85rem; font-weight:bold; color:var(--success); margin-top:5px;">Gain attendu : ${o.product.supplierPrice} FCFA</p>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // ================= LOGIQUE LIVREUR =================
+        function switchLivreurTab(tab) {
+            activeLivreurTab = tab;
+            document.getElementById('l-tab-express').classList.remove('active');
+            document.getElementById('l-tab-normal').classList.remove('active');
+            document.getElementById('l-tab-' + tab).classList.add('active');
+            renderLivreurOrders();
+        }
+
+        function renderLivreurOrders() {
+            const container = document.getElementById('livreur-orders-list');
+            // Filtrer par type (Express vs Normal/48h)
+            let currentOrders = database.orders.filter(o => {
+                if(activeLivreurTab === 'express') return o.type === 'express';
+                return o.type === '48h';
+            });
+
+            // Si c'est l'onglet 48h, tri automatique par commune pour faciliter le groupage !
+            if(activeLivreurTab === 'normal') {
+                currentOrders.sort((a, b) => a.clientCommune.localeCompare(b.clientCommune));
+            }
+
+            if(currentOrders.length === 0) {
+                container.innerHTML = `<p style="text-align:center; color:var(--gray); padding:30px;">Aucune course disponible dans cette catégorie chef 🏍️</p>`;
+                return;
+            }
+
+            container.innerHTML = currentOrders.map(o => `
+                <div class="card ${o.type === 'express' ? 'express-border' : ''}">
+                    <div class="card-header-flex">
+                        <div>
+                            <span class="role-badge" style="background:${o.type==='express'?'var(--primary)':'var(--dark)'}">${o.type.toUpperCase()}</span>
+                            <div style="font-weight:bold; font-size:1.1rem; margin-top:5px;">Axe : ${o.product.supplierCommune} ➔ ${o.clientCommune}</div>
+                        </div>
+                        <div style="text-align:right;">
+                            <span class="price-tag">${o.product.finalPrice}f</span>
+                            <div style="font-size:0.75rem; color:var(--gray);">+ Transport</div>
+                        </div>
+                    </div>
+
+                    <div style="background:#f9f9f9; padding:8px; border-radius:6px; margin:8px 0; font-size:0.85rem;">
+                        <strong>Colis:</strong> ${o.product.category} ${o.product.brand} (Taille ${o.product.size}, Couleur ${o.product.color})
+                    </div>
+
+                    <!-- AFFICHAGE DYNAMIQUE SELON LE STATUT DE LA COURSE -->
+                    ${o.status === 'En attente' ? `
+                        <button class="btn-action-sm btn-next" style="width:100%; background:var(--success);" onclick="updateStatus(${o.id}, 'Récupération en cours')">Accepter la course 🏍️</button>
+                    ` : o.status === 'Récupération en cours' ? `
+                        <p style="font-size:0.8rem; color:var(--warning); font-weight:bold; margin-bottom:5px;">Étape 1 : Va charger le colis chez le fournisseur</p>
+                        <a href="tel:${o.product.supplierPhone}" class="btn-call">📞 Appeler Fournisseur (${o.product.supplierName})</a>
+                        <button class="btn-action-sm btn-next" onclick="updateStatus(${o.id}, 'En route pour livraison')">Colis Récupéré 📦</button>
+                    ` : o.status === 'En route pour livraison' ? `
+                        <p style="font-size:0.8rem; color:var(--primary); font-weight:bold; margin-bottom:5px;">Étape 2 : Livre le client à ${o.clientCommune}</p>
+                        <a href="tel:${o.clientPhone}" class="btn-call">📞 Appeler Client (${o.clientName})</a>
+                        <button class="btn-action-sm btn-next" style="background:var(--success);" onclick="updateStatus(${o.id}, 'Livré')">Livré & Encaissé Cash ✅</button>
+                    ` : `
+                        <div style="color:var(--success); font-weight:bold; font-size:0.9rem; text-align:center; padding:5px;">✨ Course terminée avec succès !</div>
+                    `}
+                </div>
+            `).join('');
+        }
+
+        function updateStatus(orderId, newStatus) {
+            let order = database.orders.find(o => o.id === orderId);
+            if(order) {
+                order.status = newStatus;
+                renderLivreurOrders();
+            }
+        }
+
+        // ================= LE CHATBOT EN NOUCHI =================
         function toggleChat() {
             const win = document.getElementById('chatbot-window');
             win.style.display = (win.style.display === 'flex') ? 'none' : 'flex';
         }
 
-        function handleChatKey(e) {
-            if(e.key === 'Enter') sendChatMessage();
+        function initChatForClient() {
+            const box = document.getElementById('chat-messages');
+            box.innerHTML = `<div class="msg bot">Salut boss ${currentUser.name} ! Trouve ton vêtement au calme dans la vitrine avec la barre de recherche. Dès que tu es calé, clique sur le bouton "Commander" de l'article pour qu'on gère ça fissa ! 🤖</div>`;
+            chatStep = "idle";
         }
+
+        function openChatToOrder(productId) {
+            selectedProductForOrder = database.products.find(p => p.id === productId);
+            chatStep = "delivery_choice";
+            toggleChat();
+
+            const box = document.getElementById('chat-messages');
+            box.innerHTML = ""; // clean cache
+            appendMsg(`Excellent choix chef ! Le vêtement "${selectedProductForOrder.category} ${selectedProductForOrder.brand}" (Prix : ${selectedProductForOrder.finalPrice} FCFA) est bien dispo en stock.`, 'bot');
+            
+            setTimeout(() => {
+                appendMsg(`Je vois que tu crèches à **${currentUser.commune}**. Pour acheminer le colis, on fait comment ?\n\n1️⃣ **Livraison Express** (On t'envoie ça aujourd'hui même ! Transport un peu plus cher).\n2️⃣ **Livraison 48h** (Plus tranquille d'ici 2 jours, prix très doux pour le groupage).\n\nTape **1** ou **2** pour choisir, boss.`, 'bot');
+            }, 800);
+        }
+
+        function handleChatKey(e) { if(e.key === 'Enter') sendChatMessage(); }
 
         function sendChatMessage() {
             const input = document.getElementById('chat-input');
-            const text = input.value.trim();
-            if(!text) return;
+            const val = input.value.trim();
+            if(!val) return;
 
-            appendMessage(text, 'user');
+            appendMsg(val, 'user');
             input.value = '';
 
             setTimeout(() => {
-                let reply = "Je n'ai pas compris. Tu peux me parler des articles ou des frais de livraison ?";
-                const lowerText = text.toLowerCase();
-
-                if(lowerText.includes('livraison') || lowerText.includes('prix') || lowerText.includes('livrer')) {
-                    reply = "Le tarif de livraison n'est pas fixe. Il varie généralement entre 1000 et 3000 FCFA selon ta commune à Abidjan. Le livreur te donnera le prix exact avant de se déplacer.";
-                } else if(lowerText.includes('acheter') || lowerText.includes('commande')) {
-                    reply = "Va sur l'onglet 'Acheteur' et clique sur le bouton 'Acheter' à côté du vêtement choisi !";
+                let lower = val.toLowerCase();
+                
+                // Anti-Dribble & Bloquage commission immédiat
+                if(lower.includes('numéro') || lower.includes('whatsapp') || lower.includes('direct') || lower.includes('vendeur')) {
+                    appendMsg("Ah boss, tu veux me dribbler ou bien ? 😂 Si je te donne son contact direct, ma commission va sortir d'où ? On fait tout sur le site, c'est carré pour la sécurité de tout le monde !", 'bot');
+                    return;
                 }
-                appendMessage(reply, 'bot');
+
+                // Refus baisse de prix en nouchi
+                if(lower.includes('diminuer') || lower.includes('cadeau') || lower.includes('remise') || lower.includes('cher')) {
+                    appendMsg("Actuellement c'est chaud partout hein boss, ça nous arrange pas du tout ! Le prix affiché là c'est le dernier prix propre. On avance ?", 'bot');
+                    return;
+                }
+
+                if(chatStep === 'delivery_choice') {
+                    let type = "";
+                    if(lower.includes('1') || lower.includes('express')) type = "express";
+                    else if(lower.includes('2') || lower.includes('48')) type = "48h";
+
+                    if(type !== "") {
+                        // Création de la commande réelle dans la DB simulée
+                        const newOrder = {
+                            id: database.orders.length + 1,
+                            product: selectedProductForOrder,
+                            clientName: currentUser.name,
+                            clientPhone: currentUser.phone,
+                            clientCommune: currentUser.commune,
+                            type: type,
+                            status: "En attente"
+                        };
+                        database.orders.push(newOrder);
+
+                        if(type === 'express') {
+                            appendMsg(`C'est calé pour l'**Express** ! Le livreur va charger ton colis tout de suite pour rallier ${currentUser.commune}. Il va foncer et t'appeler sur ton **${currentUser.phone}** pour fixer le prix de la course rapide. Prépare le cash, tu me donnes je te donne ! 🏍️`, 'bot');
+                        } else {
+                            appendMsg(`D'accord, option **48h** validée. Ton colis sera groupé par commune pour alléger le transport. Le livreur t'appellera sur ton **${currentUser.phone}** d'ici demain ou après-demain pour le dépôt à ${currentUser.commune}. Merci pour la confiance ! 🤝`, 'bot');
+                        }
+                        chatStep = "completed";
+                    } else {
+                        appendMsg("Désolé boss, j'ai pas bien capté ton choix. Tape **1** pour Express ou **2** pour 48 heures.", 'bot');
+                    }
+                } else if(chatStep === 'completed') {
+                    appendMsg("Ta commande est déjà validée et le livreur est sur le coup ! Si tu veux autre chose, fais ta recherche dans la vitrine du site.", 'bot');
+                } else {
+                    appendMsg("Je suis là pour t'aider à commander les meilleurs vêtements du pays ! Choisis un modèle dans la vitrine et clique sur Acheter pour démarrer.", 'bot');
+                }
             }, 600);
         }
 
-        function appendMessage(text, sender) {
+        function appendMsg(text, sender) {
             const container = document.getElementById('chat-messages');
-            const msgDiv = document.createElement('div');
-            msgDiv.classList.add('msg', sender);
-            msgDiv.innerText = text;
-            container.appendChild(msgDiv);
+            const div = document.createElement('div');
+            div.classList.add('msg', sender);
+            div.innerHTML = text.replace(/\n/g, '<br>');
+            container.appendChild(div);
             container.scrollTop = container.scrollHeight;
         }
-
-        renderData();
     </script>
 </body>
 </html>
